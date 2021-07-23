@@ -70,7 +70,7 @@ Guacamole是一个提供了基于HTML5 web应用程序的远程桌面代理服�
 #### Guacamole协议是用于远程显示和事件传输的协议，不实现特定的桌面环境支持，实现了现有远程桌面的超集。
 #### guacd是Guacamole的核心，guacd也不了解任何具体的远程桌面协议，而是实现了通过web应用转发的Guacamole协议来确定哪些协议需要加载，哪些参数必须传递给它。
 #### web应用程序是Guacamole与用户进行交互的部分。Apache提供了基于Java的编写的Web应用程序，但是这并不代表Guacamole 只支持Java。Guacamole是一个API。
-# 文档
+## 文档
 [Centos7.2部署guacamloe1.0.0中文文档](https://github.com/TelDragon/guacamole/blob/master/docs/Centos7.2_deploy_guacamole1.0.0_zh.md)
 
 [guacamole连接参数官方文档](http://guacamole.apache.org/doc/gug/configuring-guacamole.html)
@@ -85,11 +85,13 @@ Guacamole是一个提供了基于HTML5 web应用程序的远程桌面代理服�
 
 [其它更多参数中文文档](https://github.com/TelDragon/guacamole/blob/master/docs/%E5%85%B6%E4%BB%96%E6%9B%B4%E5%A4%9A%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE_zh.md)
 
-# guacamole用户手册
+## guacamole用户手册
 [guacamole用户手册](https://github.com/TelDragon/guacamole/blob/master/docs/gug/Manual.md)
 
-# 测试界面
+## 测试界面
 
 在浏览器中打开Guacamole Web应用，地址为http://Guacamole_Server_IP:8080/guacamole
 
-# 开发API文档 (api-documentation)
+## 开发API文档 (api-documentation)
+
+[api-documentation]https://github.com/TelDragon/guacamole/blob/master/docs/api-documentation.md]
