@@ -57,7 +57,7 @@ test/test
   https://t.me/next_terminal
   
   
-  # 一、Guacamole介绍
+  # Guacamole介绍
 
 Guacamole是一个提供了基于HTML5 web应用程序的远程桌面代理服务器。通过使用Guacamole服务器，我们很轻松的在浏览器上远程访问Guacamole代理的主机。
 
