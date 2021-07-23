@@ -33,8 +33,9 @@ import {
 } from '@ant-design/icons';
 
 import {hasPermission, isAdmin} from "../../service/permission";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import ChooseAsset from "./ChooseAsset";
+import {formatDate} from "../../utils/utils";
 
 const confirm = Modal.confirm;
 const {Content} = Layout;
@@ -366,26 +367,21 @@ class DynamicCommand extends Component {
             dataIndex: 'name',
             key: 'name',
             render: (name, record) => {
-                let short = name;
-                if (short && short.length > 20) {
-                    short = short.substring(0, 20) + " ...";
-                }
-                if (hasPermission(record['owner'])) {
-                    return (
-                        <Button type="link" size='small' onClick={() => this.showModal('更新指令', record)}>
-                            <Tooltip placement="topLeft" title={name}>
-                                {short}
-                            </Tooltip>
-                        </Button>
-                    );
-                } else {
-                    return (
-                        <Tooltip placement="topLeft" title={name}>
-                            {short}
-                        </Tooltip>
-                    );
-                }
+                return <Button type="link" size='small'
+                               disabled={!hasPermission(record['owner'])}
+                               onClick={() => this.showModal('更新指令', record)}>{name}</Button>
             },
+            // render: (name, record) => {
+            //     let short = name;
+            //     if (short && short.length > 20) {
+            //         short = short.substring(0, 20) + " ...";
+            //     }
+            //     return (
+            //         <Tooltip placement="topLeft" title={name}>
+            //             {short}
+            //         </Tooltip>
+            //     );
+            // },
             sorter: true,
         }, {
             title: '指令内容',
@@ -411,12 +407,15 @@ class DynamicCommand extends Component {
             title: '创建日期',
             dataIndex: 'created',
             key: 'created',
+            // render: (text, record) => {
+            //     return (
+            //         <Tooltip title={text}>
+            //             {dayjs(text).fromNow()}
+            //         </Tooltip>
+            //     )
+            // },
             render: (text, record) => {
-                return (
-                    <Tooltip title={text}>
-                        {dayjs(text).fromNow()}
-                    </Tooltip>
-                )
+                return formatDate(text, 'yyyy-MM-dd hh:mm:ss');
             },
             sorter: true,
         }, {
@@ -426,11 +425,11 @@ class DynamicCommand extends Component {
 
                 const menu = (
                     <Menu>
-                        <Menu.Item key="0">
-                            <Button type="text" size='small'
-                                    disabled={!hasPermission(record['owner'])}
-                                    onClick={() => this.showModal('更新指令', record)}>编辑</Button>
-                        </Menu.Item>
+                        {/*<Menu.Item key="0">*/}
+                        {/*    <Button type="text" size='small'*/}
+                        {/*            disabled={!hasPermission(record['owner'])}*/}
+                        {/*            onClick={() => this.showModal('更新指令', record)}>编辑</Button>*/}
+                        {/*</Menu.Item>*/}
 
                         {isAdmin() ?
                             <Menu.Item key="1">

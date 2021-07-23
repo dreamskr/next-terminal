@@ -30,9 +30,11 @@ import {
     UndoOutlined
 } from '@ant-design/icons';
 
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
+import {formatDate} from "../../utils/utils";
 import JobModal from "./JobModal";
 import './Job.css'
+// import {hasPermission} from "../../service/permission";
 
 const confirm = Modal.confirm;
 const {Content} = Layout;
@@ -269,16 +271,21 @@ class Job extends Component {
             dataIndex: 'name',
             key: 'name',
             render: (name, record) => {
-                let short = name;
-                if (short && short.length > 20) {
-                    short = short.substring(0, 20) + " ...";
-                }
-                return (
-                    <Tooltip placement="topLeft" title={name}>
-                        {short}
-                    </Tooltip>
-                );
+                return <Button type="link" size='small'
+                               onClick={() => this.showModal('更新计划任务', record)}>{name}</Button>
             },
+
+            // render: (name, record) => {
+            //     let short = name;
+            //     if (short && short.length > 20) {
+            //         short = short.substring(0, 20) + " ...";
+            //     }
+            //     return (
+            //         <Tooltip placement="topLeft" title={name}>
+            //             {short}
+            //         </Tooltip>
+            //     );
+            // },
             sorter: true,
         }, {
             title: '状态',
@@ -321,27 +328,33 @@ class Job extends Component {
             dataIndex: 'created',
             key: 'created',
             render: (text, record) => {
-                return (
-                    <Tooltip title={text}>
-                        {dayjs(text).fromNow()}
-                    </Tooltip>
-                )
+                return formatDate(text, 'yyyy-MM-dd hh:mm:ss');
             },
+            // render: (text, record) => {
+            //     return (
+            //         <Tooltip title={text}>
+            //             {dayjs(text).fromNow()}
+            //         </Tooltip>
+            //     )
+            // },
             sorter: true,
         }, {
             title: '最后执行日期',
             dataIndex: 'updated',
             key: 'updated',
             render: (text, record) => {
-                if (text === '0001-01-01 00:00:00') {
-                    return '';
-                }
-                return (
-                    <Tooltip title={text}>
-                        {dayjs(text).fromNow()}
-                    </Tooltip>
-                )
+                return formatDate(text, 'yyyy-MM-dd hh:mm:ss');
             },
+            // render: (text, record) => {
+            //     if (text === '0001-01-01 00:00:00') {
+            //         return '';
+            //     }
+            //     return (
+            //         <Tooltip title={text}>
+            //             {dayjs(text).fromNow()}
+            //         </Tooltip>
+            //     )
+            // },
             sorter: true,
         }, {
             title: '操作',
@@ -350,10 +363,10 @@ class Job extends Component {
 
                 const menu = (
                     <Menu>
-                        <Menu.Item key="0">
-                            <Button type="text" size='small'
-                                    onClick={() => this.showModal('更新计划任务', record)}>编辑</Button>
-                        </Menu.Item>
+                        {/*<Menu.Item key="0">*/}
+                        {/*    <Button type="text" size='small'*/}
+                        {/*            onClick={() => this.showModal('更新计划任务', record)}>编辑</Button>*/}
+                        {/*</Menu.Item>*/}
 
                         <Menu.Item key="2">
                             <Button type="text" size='small'

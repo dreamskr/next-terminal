@@ -33,7 +33,9 @@ import {
 } from '@ant-design/icons';
 
 import {hasPermission, isAdmin} from "../../service/permission";
-import dayjs from "dayjs";
+
+// import dayjs from "dayjs";
+import {formatDate} from "../../utils/utils";
 
 const confirm = Modal.confirm;
 const {Search} = Input;
@@ -335,27 +337,16 @@ class Credential extends Component {
             title: '凭证名称',
             dataIndex: 'name',
             key: 'name',
-            render: (name, record, index) => {
+            render: (name, record) => {
                 let short = name;
                 if (short && short.length > 20) {
                     short = short.substring(0, 20) + " ...";
                 }
-                if (hasPermission(record['owner'])) {
-                    return (
-                        <Button type="link" size='small' loading={this.state.items[index].updateBtnLoading}
-                                onClick={() => this.showModal('更新凭证', record.id, index)}>
-                            <Tooltip placement="topLeft" title={name}>
-                                {short}
-                            </Tooltip>
-                        </Button>
-                    );
-                } else {
-                    return (
-                        <Tooltip placement="topLeft" title={name}>
-                            {short}
-                        </Tooltip>
-                    );
-                }
+                return (
+                    <Tooltip placement="topLeft" title={name}>
+                        {short}
+                    </Tooltip>
+                );
             },
             sorter: true,
         }, {
@@ -387,12 +378,15 @@ class Credential extends Component {
             dataIndex: 'created',
             key: 'created',
             render: (text, record) => {
-                return (
-                    <Tooltip title={text}>
-                        {dayjs(text).fromNow()}
-                    </Tooltip>
-                )
+                return formatDate(text, 'yyyy-MM-dd hh:mm:ss');
             },
+            // render: (text, record) => {
+            //     return (
+            //         <Tooltip title={text}>
+            //             {dayjs(text).fromNow()}
+            //         </Tooltip>
+            //     )
+            // },
             sorter: true,
         },
             {

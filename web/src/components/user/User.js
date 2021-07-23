@@ -34,7 +34,8 @@ import {
 } from '@ant-design/icons';
 import UserShareAsset from "./UserShareAsset";
 import {hasPermission} from "../../service/permission";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
+import {formatDate} from "../../utils/utils";
 
 const confirm = Modal.confirm;
 const {Search} = Input;
@@ -304,19 +305,6 @@ class User extends Component {
             dataIndex: 'username',
             key: 'username',
             sorter: true,
-            render: (username, record, index) => {
-                return (
-                    <Button type="link" size='small'
-                            onClick={async () => {
-                                let result = await request.get(`/users/${record['id']}`);
-                                if (result['code'] !== 1) {
-                                    message.error(result['message']);
-                                    return;
-                                }
-                                this.showModal('更新用户', result['data']);
-                            }}>{username}</Button>
-                );
-            }
         }, {
             title: '用户昵称',
             dataIndex: 'nickname',
@@ -384,12 +372,15 @@ class User extends Component {
             dataIndex: 'created',
             key: 'created',
             render: (text, record) => {
-                return (
-                    <Tooltip title={text}>
-                        {dayjs(text).fromNow()}
-                    </Tooltip>
-                )
+                return formatDate(text, 'yyyy-MM-dd hh:mm:ss');
             },
+            // render: (text, record) => {
+            //     return (
+            //         <Tooltip title={text}>
+            //             {dayjs(text).fromNow()}
+            //         </Tooltip>
+            //     )
+            // },
             sorter: true,
         },
             {

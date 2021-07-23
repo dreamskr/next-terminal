@@ -17,13 +17,13 @@ import {
 } from "antd";
 import qs from "qs";
 import request from "../../common/request";
-import {differTime} from "../../utils/utils";
+import {differTime,formatDate} from "../../utils/utils";
 import Playback from "./Playback";
 import {message} from "antd/es";
 import {DeleteOutlined, ExclamationCircleOutlined, SyncOutlined, UndoOutlined} from "@ant-design/icons";
 import {PROTOCOL_COLORS} from "../../common/constants";
 
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 const confirm = Modal.confirm;
 const {Content} = Layout;
@@ -251,12 +251,15 @@ class OfflineSession extends Component {
             dataIndex: 'connectedTime',
             key: 'connectedTime',
             render: (text, record) => {
-                return (
-                    <Tooltip title={text}>
-                        {dayjs(text).fromNow()}
-                    </Tooltip>
-                )
+                return formatDate(text, 'yyyy-MM-dd hh:mm:ss');
             }
+            // render: (text, record) => {
+            //     return (
+            //         <Tooltip title={text}>
+            //             {dayjs(text).fromNow()}
+            //         </Tooltip>
+            //     )
+            // }
         }, {
             title: '接入时长',
             dataIndex: 'connectedTime',
@@ -403,7 +406,6 @@ class OfflineSession extends Component {
                                         <Select.Option value="ssh">ssh</Select.Option>
                                         <Select.Option value="vnc">vnc</Select.Option>
                                         <Select.Option value="telnet">telnet</Select.Option>
-                                        <Select.Option value="kubernetes">kubernetes</Select.Option>
                                     </Select>
 
                                     <Tooltip title='重置查询'>

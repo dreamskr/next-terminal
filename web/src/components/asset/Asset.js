@@ -26,8 +26,9 @@ import qs from "qs";
 import AssetModal from "./AssetModal";
 import request from "../../common/request";
 import {message} from "antd/es";
-import {getHeaders, isEmpty} from "../../utils/utils";
-import dayjs from 'dayjs';
+import {formatDate,getHeaders, isEmpty} from "../../utils/utils";
+// import {getHeaders, isEmpty} from "../../utils/utils";
+// import dayjs from 'dayjs';
 import {
     DeleteOutlined,
     DownOutlined,
@@ -465,27 +466,29 @@ class Asset extends Component {
             title: '资产名称',
             dataIndex: 'name',
             key: 'name',
+//             render: (name, record) => {
+//                 let short = name;
+//                 if (short && short.length > 20) {
+//                     short = short.substring(0, 20) + " ...";
+//                 }
+//                 return (
+//                     <Tooltip placement="topLeft" title={name}>
+//                         {short}
+//                     </Tooltip>
+//                 );
+//             },
             render: (name, record) => {
-                let short = name;
-                if (short && short.length > 20) {
-                    short = short.substring(0, 20) + " ...";
-                }
-
-                if (hasPermission(record['owner'])) {
-                    return (
-                        <Button type="link" size='small' onClick={() => this.update(record.id)}>
-                            <Tooltip placement="topLeft" title={name}>
-                                {short}
-                            </Tooltip>
-                        </Button>
-                    );
-                } else {
-                    return (
-                        <Tooltip placement="topLeft" title={name}>
-                            {short}
-                        </Tooltip>
-                    );
-                }
+                return <Button type="link" size='small'
+                               disabled={!hasPermission(record['owner'])}
+                               onClick={() => this.update(record.id)}>{name}</Button>
+            },
+            sorter: true,
+        }, {
+            title: '主机',
+            dataIndex: 'ip',
+            key: 'ip',
+            render: (text, record) => {
+                return text;
             },
             sorter: true,
         }, {
@@ -499,7 +502,8 @@ class Asset extends Component {
                         <Tag color={PROTOCOL_COLORS[text]}>{text}</Tag>
                     </Tooltip>
                 )
-            }
+            },
+            sorter: true,
         }, {
             title: '标签',
             dataIndex: 'tags',
@@ -536,21 +540,26 @@ class Asset extends Component {
                         </Tooltip>
                     )
                 }
-            }
+            },
+            sorter: true,
         }, {
             title: '所有者',
             dataIndex: 'ownerName',
-            key: 'ownerName'
+            key: 'ownerName',
+            sorter: true,
         }, {
             title: '创建日期',
             dataIndex: 'created',
             key: 'created',
+//             render: (text, record) => {
+//                 return (
+//                     <Tooltip title={text}>
+//                         {dayjs(text).fromNow()}
+//                     </Tooltip>
+//                 )
+//             },
             render: (text, record) => {
-                return (
-                    <Tooltip title={text}>
-                        {dayjs(text).fromNow()}
-                    </Tooltip>
-                )
+                return formatDate(text, 'yyyy-MM-dd hh:mm:ss');
             },
             sorter: true,
         },
@@ -561,17 +570,17 @@ class Asset extends Component {
 
                     const menu = (
                         <Menu>
-                            <Menu.Item key="1">
-                                <Button type="text" size='small'
-                                        disabled={!hasPermission(record['owner'])}
-                                        onClick={() => this.update(record.id)}>编辑</Button>
-                            </Menu.Item>
+                            {/*<Menu.Item key="1">*/}
+                            {/*    <Button type="text" size='small'*/}
+                            {/*            disabled={!hasPermission(record['owner'])}*/}
+                            {/*            onClick={() => this.update(record.id)}>编辑</Button>*/}
+                            {/*</Menu.Item>*/}
 
-                            <Menu.Item key="2">
-                                <Button type="text" size='small'
-                                        disabled={!hasPermission(record['owner'])}
-                                        onClick={() => this.copy(record.id)}>复制</Button>
-                            </Menu.Item>
+                            {/*<Menu.Item key="2">*/}
+                            {/*    <Button type="text" size='small'*/}
+                            {/*            disabled={!hasPermission(record['owner'])}*/}
+                            {/*            onClick={() => this.copy(record.id)}>复制</Button>*/}
+                            {/*</Menu.Item>*/}
 
                             {isAdmin() ?
                                 <Menu.Item key="4">
@@ -617,7 +626,9 @@ class Asset extends Component {
                         <div>
                             <Button type="link" size='small'
                                     onClick={() => this.access(record)}>接入</Button>
-
+                            <Button type="link" size='small'
+                                    disabled={!hasPermission(record['owner'])}
+                                    onClick={() => this.copy(record.id)}>复制</Button>
                             <Dropdown overlay={menu}>
                                 <Button type="link" size='small'>
                                     更多 <DownOutlined/>
@@ -699,7 +710,6 @@ class Asset extends Component {
                                         <Select.Option value="ssh">ssh</Select.Option>
                                         <Select.Option value="vnc">vnc</Select.Option>
                                         <Select.Option value="telnet">telnet</Select.Option>
-                                        <Select.Option value="kubernetes">kubernetes</Select.Option>
                                     </Select>
 
                                     <Tooltip title='重置查询'>
@@ -888,7 +898,7 @@ class Asset extends Component {
 
                                     <Button type="primary" onClick={() => {
 
-                                        let csvString = 'name,ssh,127.0.0.1,22,username,password,privateKey,passphrase,description,tag1|tag2|tag3';
+                                        let csvString = 'name,ssh,127.0.0.1,22,username,password,privateKey,passphrase,description';
                                         //前置的"\uFEFF"为“零宽不换行空格”，可处理中文乱码问题
                                         const blob = new Blob(["\uFEFF" + csvString], {type: 'text/csv;charset=gb2312;'});
                                         let a = document.createElement('a');
