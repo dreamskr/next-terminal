@@ -57,7 +57,7 @@ test/test
   https://t.me/next_terminal
   
   
-  # Guacamole介绍
+# Guacamole介绍
 
 Guacamole是一个提供了基于HTML5 web应用程序的远程桌面代理服务器。通过使用Guacamole服务器，我们很轻松的在浏览器上远程访问Guacamole代理的主机。
 
@@ -91,27 +91,5 @@ Guacamole是一个提供了基于HTML5 web应用程序的远程桌面代理服�
 # 测试界面
 
 在浏览器中打开Guacamole Web应用，地址为http://Guacamole_Server_IP:8080/guacamole
-
-Guacamole登录界面
-![guacamole登录界面](https://github.com/TelDragon/guacamole/blob/master/docs/_static/img/Guacamole00.png?raw=true)
-
-下图为guacamole登录后显示的页面。
-![guacamole登陆后的界面](https://github.com/TelDragon/guacamole/blob/master/docs/_static/img/Guacamole01.png?raw=true)
-
-下图是“CentOS 7 TigerVNC”连接结果，主要测试TigerVNC,采用VNC协议。
-![guacamole_VNC](https://github.com/TelDragon/guacamole/blob/master/docs/_static/img/Guacamole02.png?raw=true)
-
-下图是“Windows 10(Test)”连接的结果展示，测试RDP。
-![guacamole_windows](https://github.com/TelDragon/guacamole/blob/master/docs/_static/img/Guacamole03.png?raw=true)
-
-下图是"CentOS SSH"连接结果，测试SSH。
-![guacamole_ssh](https://github.com/TelDragon/guacamole/blob/master/docs/_static/img/Guacamole04.png?raw=true)
-
-下图是“Ubuntu x11vnc”，测试x11vnc。
-![guacamloe_ubuntu](https://github.com/TelDragon/guacamole/blob/master/docs/_static/img/Guacamole05.png?raw=true)
-
-
-# 免费和开源
-Apache Guacamole始终是免费且开源的软件。它是根据[Apache许可2.0版许可的](http://www.apache.org/licenses/LICENSE-2.0)，并且由使用Guacamole访问他们自己的开发环境的开发人员社区主动维护。
 
 # 开发API文档 (api-documentation)
