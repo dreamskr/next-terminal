@@ -95,4 +95,4 @@ Guacamole是一个提供了基于HTML5 web应用程序的远程桌面代理服�
 
 ## 开发API文档 (api-documentation)
 
-[api-documentation]https://github.com/dreamskr/next-terminal/blob/master/docs/api-documentation.md]
+[api-documentation](https://github.com/dreamskr/next-terminal/blob/master/docs/api-documentation.md)
